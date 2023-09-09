@@ -7,7 +7,6 @@ import Popup from 'reactjs-popup';
 const Home = ({searchTerm}) => {
     const [post,setPost]=useState([])
     const [post2,setPost2]=useState([])
-    const [post3,setPost3]=useState([])
     const [filterpost,setfilterpost]=useState([])
     const [deletedid,setdelid]=useState([])
     const [temp,settemp]=useState([])
@@ -15,8 +14,6 @@ const Home = ({searchTerm}) => {
     const [bool,setbool]=useState(true)
     const [bool2,setbool2]=useState(true)
     const [popup,setpopup]=useState(false)
-    const [opn,setopn]=useState(true)
-    const [cls,setcls]=useState(false)
     var getsearch=[]
     var filtered=[]
   useEffect(()=>{
@@ -28,6 +25,10 @@ const Home = ({searchTerm}) => {
     }
       );
   },[])
+  if(localStorage.temp===undefined || localStorage.temp===null ){
+    localStorage.temp=JSON.stringify(post)
+  }
+  console.log(localStorage.temp)
   const handleclick=(key)=>{
     setdelid([...deletedid,key])
     setbool(false)
@@ -78,7 +79,7 @@ const Home = ({searchTerm}) => {
   
    console.log(lclstore)
   const handleSearch=()=>{
-    lclstore=undefined
+    
     setbool(false)
     setbool2(false)
   }
@@ -127,7 +128,7 @@ const Home = ({searchTerm}) => {
              </Typography>
              </CardContent>
              </Link>} position="top" width="600px">
-             <NewItem id={data.id}/>
+             <NewItem id={data.id} setpopup={setpopup}/>
              </Popup>
              <footer className='cardfooter'>
              <button key={data.id} className='cardbtn' onClick={()=>handleclick(data.id)}>Delete</button>
